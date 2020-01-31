@@ -118,7 +118,7 @@ echo -e "Checking for id_rsa...."
 }
 
 ## Generate SSH key for GitHub
-ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com" &
+ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
 echo -en "Public Key:"
 echo ""
 cat ~/.ssh/id_rsa.pub
