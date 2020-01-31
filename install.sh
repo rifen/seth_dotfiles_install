@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 
 #backslash-escape colors
 BLACK='\033[0;30m'
