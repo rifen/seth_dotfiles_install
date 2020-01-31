@@ -104,7 +104,7 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 ## Look for id_rsa to see if it already exists
 if [[ -f ~/.ssh/id_rsa* ]]; then
   echo -en "An ssh key is already generated are you sure you want to replace it? (y/n)"
-  read -r option1
+  read option1
 elif [[ $option1 == "y" ]]; then
   mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
   mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
@@ -116,11 +116,12 @@ fi
 ## Generate SSH key for GitHub
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
 wait
-cd ~/.ssh && vim id_rsa.pub
+cd ~/.ssh
+vim id_rsa.pub
 wait
 echo -en "${RED}Did you copy and paste into${RESET}${YELLOW}https://github.com/settings/keys${RESET} ???"
 echo -en "${RED}(y/n)${RESET}"
-read -r option2
+read option2
 
 if [[ $option2 == "y" ]]; then
   eval $(ssh-agent -s)
