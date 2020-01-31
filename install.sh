@@ -95,16 +95,30 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 fi
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Updated/Installed Packages               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
+
 ## Generate SSH key for GitHub
+if [ -f ~/.ssh/id_rsa* ]; then
+  echo -en "An ssh key is already generated are you sure you want to replace it? (y/n)"
+  read -r option1
+elif [ $option1 == "y" ]; then
+  exit 0
+else
+  exit 1
+fi
+
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com" &
 wait
 cd ~/.ssh && vim id_rsa.pub
 wait
-echo -e -en "Did you copy and paste into https://github.com/settings/keys ??? (y/n)"
-read -r option
-if [$option == "y"]; then
+echo -en "Did you copy and paste into https://github.com/settings/keys ??? (y/n)"
+read -r option2
+
+if [ $option2 == "y" ]; then
   eval $(ssh-agent -s)
   ssh-add ~/.ssh/id_rsa
   sudo mv -v ~/.bash* ~/*.bak && mv ~/.profile ~/.profile.bak
