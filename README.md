@@ -22,5 +22,5 @@
 <h1 align="center">Install</h1>
 
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"
 ```
