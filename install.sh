@@ -1,13 +1,24 @@
 #!/bin/bash
-echo "----------------------------------------"
-echo "          Rifen Zsh Setup                "
-echo "----------------------------------------"
+
+#backslash-escape colors
+BLACK='\033[0;30m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+MAGENTA="\033[0;35m"
+CYAN="\033[0;36m"
+WHITE='\033[0;37m'
+RESET='\033[0m'
+
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
 set -e
 
-echo ""
-echo "--------------------"
-echo "  Downloads"
-echo ""
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Downloads               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
 ARH_RELEASE="arch\|Manjaro\|Chakra"
 DEB_RELEASE="[Dd]ebian\|Knoppix"
 YUM_RELEASE="rhel\|CentOS\|RED\|Fedora"
@@ -44,7 +55,7 @@ bsd_install() {
 
 set_brew() {
   if ! [ -x "$(command -v brew)" ]; then
-    echo "Now, Install Brew." >&2
+    echo -e "Now, Install Brew." >&2
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
       sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 
@@ -70,51 +81,53 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   RELEASE=$(cat /etc/*release)
 
   ##ARH Package
-  if echo $RELEASE | grep ^NAME | grep Manjaro; then
+  if echo -e $RELEASE | grep ^NAME | grep Manjaro; then
     arh_install
-  elif echo $RELEASE | grep ^NAME | grep Chakra; then
+  elif echo -e $RELEASE | grep ^NAME | grep Chakra; then
     arh_install
-  elif echo $RELEASE | grep ^ID | grep arch; then
+  elif echo -e $RELEASE | grep ^ID | grep arch; then
     arh_install
-  elif echo $RELEASE | grep ^ID_LIKE | grep arch; then
+  elif echo -e $RELEASE | grep ^ID_LIKE | grep arch; then
     arh_install
 
   ##Deb Package
-  elif echo $RELEASE | grep ^NAME | grep Ubuntu; then
+  elif echo -e $RELEASE | grep ^NAME | grep Ubuntu; then
     deb_install
-  elif echo $RELEASE | grep ^NAME | grep Debian; then
+  elif echo -e $RELEASE | grep ^NAME | grep Debian; then
     deb_install
-  elif echo $RELEASE | grep ^NAME | grep Mint; then
+  elif echo -e $RELEASE | grep ^NAME | grep Mint; then
     deb_install
-  elif echo $RELEASE | grep ^NAME | grep Knoppix; then
+  elif echo -e $RELEASE | grep ^NAME | grep Knoppix; then
     deb_install
-  elif echo $RELEASE | grep ^ID_LIKE | grep debian; then
+  elif echo -e $RELEASE | grep ^ID_LIKE | grep debian; then
     deb_install
 
   ##Yum Package
-  elif echo $RELEASE | grep ^NAME | grep CentOS; then
+  elif echo -e $RELEASE | grep ^NAME | grep CentOS; then
     yum_install
-  elif echo $RELEASE | grep ^NAME | grep Red; then
+  elif echo -e $RELEASE | grep ^NAME | grep Red; then
     yum_install
-  elif echo $RELEASE | grep ^NAME | grep Fedora; then
+  elif echo -e $RELEASE | grep ^NAME | grep Fedora; then
     yum_install
-  elif echo $RELEASE | grep ^ID_LIKE | grep rhel; then
+  elif echo -e $RELEASE | grep ^ID_LIKE | grep rhel; then
     yum_install
 
   else
-    echo "OS NOT DETECTED, couldn't install packages."
+    echo -e "----------------------------------------"
+    echo -e "${RED}OS NOT DETECTED${RESET}, couldn't install packages."
+    echo -e "----------------------------------------"
     exit 1
   fi
 fi
-echo "--------------------"
-echo "  Apply Settings"
-echo ""
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Applying Settings               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
 ## Generate SSH key for GitHub
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com" &
 wait
 cd ~/.ssh && vim id_rsa.pub
 wait
-echo -en "Did you copy and paste into https://github.com/settings/keys ??? (y/n)"
+echo -e -en "Did you copy and paste into https://github.com/settings/keys ??? (y/n)"
 read -r option
 if [$option == "y"]; then
   eval $(ssh-agent -s)
@@ -123,8 +136,9 @@ if [$option == "y"]; then
   cd ~ && git clone git@github.com:rifen/dotfiles.git && cd dotfiles && stow bash git vim zsh && cd ~
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
 else
-  echo "No Github Config - This is a private repo"
+  echo -e "${RED}No Github Config - This is a private repo${RESET}"
   exit
 fi
-echo "      The END       "
-echo "--------------------"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${GREEN}          FIN                ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
