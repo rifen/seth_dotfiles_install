@@ -102,17 +102,18 @@ echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists
-if [[ -f ~/.ssh/id_rsa* ]]; then
-  read -r -p "An ssh key is already generated are you sure you want to replace it? (y/n) " response
-  response=${response,,} # tolower
-elif [[ "$response" =~ ^(yes|y)$ ]]; then
-  mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
-  mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
-  exit 0
-else
-  exit 1
-fi
-
+{
+  if [[ -f ~/.ssh/id_rsa* ]]; then
+    read -r -p "An ssh key is already generated are you sure you want to replace it? (y/n) " response
+    response=${response,,} # tolower
+  elif [[ "$response" =~ ^(yes|y)$ ]]; then
+    mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
+    mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
+    exit 0
+  else
+    exit 1
+  fi
+}
 ## Generate SSH key for GitHub
 echo -en "Generating SSH key...."
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com" &
