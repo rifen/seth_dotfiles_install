@@ -78,47 +78,22 @@ set_brew() {
 }
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  RELEASE=$(cat /etc/*release)
+  RELEASE=$(cat /etc/*release | grep ^NAME)
 
-  ##ARH Package
-  if echo -e $RELEASE | grep ^NAME | grep Manjaro; then
-    arh_install
-  elif echo -e $RELEASE | grep ^NAME | grep Chakra; then
-    arh_install
-  elif echo -e $RELEASE | grep ^ID | grep arch; then
-    arh_install
-  elif echo -e $RELEASE | grep ^ID_LIKE | grep arch; then
-    arh_install
-
-  ##Deb Package
-  elif echo -e $RELEASE | grep ^NAME | grep Ubuntu; then
-    deb_install
-  elif echo -e $RELEASE | grep ^NAME | grep Debian; then
-    deb_install
-  elif echo -e $RELEASE | grep ^NAME | grep Mint; then
-    deb_install
-  elif echo -e $RELEASE | grep ^NAME | grep Knoppix; then
-    deb_install
-  elif echo -e $RELEASE | grep ^ID_LIKE | grep debian; then
-    deb_install
-
-  ##Yum Package
-  elif echo -e $RELEASE | grep ^NAME | grep CentOS; then
+  if [[ $RELEASE == *"CentOS"* ]]; then
     yum_install
-  elif echo -e $RELEASE | grep ^NAME | grep Red; then
-    yum_install
-  elif echo -e $RELEASE | grep ^NAME | grep Fedora; then
-    yum_install
-  elif echo -e $RELEASE | grep ^ID_LIKE | grep rhel; then
-    yum_install
-
+  elif [[ $RELEASE == *"Ubuntu"* ]]; then
+    deb_install
   else
     echo -e "----------------------------------------"
-    echo -e "${RED}OS NOT DETECTED${RESET}, couldn't install packages."
+    echo -e "${RED}OS NOT DETECTED${RESET}"
+    echo -e "$RELEASE was detected"
+    echo -e "Exiting...."
     echo -e "----------------------------------------"
     exit 1
   fi
 fi
+
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
