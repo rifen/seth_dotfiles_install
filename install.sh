@@ -80,9 +80,9 @@ set_brew() {
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   RELEASE=$(cat /etc/*release | grep ^NAME)
 
-  if [[ $RELEASE == *"CentOS"* ]]; then
+  if [[ "$RELEASE" == *"CentOS"* ]]; then
     yum_install
-  elif [[ $RELEASE == *"Ubuntu"* ]]; then
+  elif [[ "$RELEASE" == *"Ubuntu"* ]]; then
     deb_install
   else
     echo -e "----------------------------------------"
@@ -103,9 +103,9 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists
 if [[ -f ~/.ssh/id_rsa* ]]; then
-  echo -en "An ssh key is already generated are you sure you want to replace it? (y/n)"
-  read option1
-elif [[ $option1 == "y" ]]; then
+  read -r -p "An ssh key is already generated are you sure you want to replace it? (y/n) " response
+  response=${response,,} # tolower
+elif [[ "$response" =~ ^(yes|y)$ ]]; then
   mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
   mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
   exit 0
@@ -121,11 +121,10 @@ echo -en "Public Key:"
 echo ""
 cat ~/.ssh/id_rsa.pub
 echo ""
-echo -en "${RED}Did you copy and paste into${RESET}${YELLOW}https://github.com/settings/keys${RESET} ???"
-echo -en "${RED}(y/n)${RESET}"
-read option2
-
-if [[ $option2 == "y" ]]; then
+echo -en "${RED}Did you copy and paste into${RESET}${YELLOW}https://github.com/settings/keys${RESET} ${READ}???${RESET}"
+read -r -p "${RED}(y/n)${RESET}" response
+response=${response,,} # tolower
+if [[ "$response" =~ ^(yes|y)$ ]]; then
   eval $(ssh-agent -s)
   ssh-add ~/.ssh/id_rsa
   sudo mv -v ~/.bash* ~/*.bak && mv ~/.profile ~/.profile.bak
