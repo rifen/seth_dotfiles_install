@@ -1,4 +1,5 @@
-` ,ggggggggggg,                                       
+```
+ ,ggggggggggg,                                       
 dP"""88""""""Y8,        ,dPYb,                       
 Yb,  88      `8b        IP'`Yb                       
  `"  88      ,8P   gg   I8  8I                       
@@ -13,7 +14,8 @@ Yb,  88      `8b        IP'`Yb
                         I8   8I                      
                         I8   8I                      
                         I8, ,8'                      
-                         "Y8P'                       `
+                         "Y8P'                       
+````
 # My Dotfile Install Script                       
 This is a a repo to configure my workspace and pull from my private (for fun) dotfiles repo.
 
