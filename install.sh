@@ -102,15 +102,18 @@ echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists
+echo -e "Checking for id_rsa...."
 {
   if [[ -f ~/.ssh/id_rsa* ]]; then
+    echo -en "Found an id_rsa key"
     read -r -p "An ssh key is already generated are you sure you want to replace it? (y/n) " response
     response=${response,,} # tolower
   elif [[ "$response" =~ ^(yes|y)$ ]]; then
+    echo -en "Making a backup of the keys..."
     mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
     mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
-    exit 0
   else
+    :
   fi
 }
 
