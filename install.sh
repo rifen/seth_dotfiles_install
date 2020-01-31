@@ -114,11 +114,13 @@ else
 fi
 
 ## Generate SSH key for GitHub
-ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
+echo -en "Generating SSH key...."
+ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com" &
 wait
-cd ~/.ssh
-vim id_rsa.pub
-wait
+echo -en "Public Key:"
+echo ""
+cat ~/.ssh/id_rsa.pub
+echo ""
 echo -en "${RED}Did you copy and paste into${RESET}${YELLOW}https://github.com/settings/keys${RESET} ???"
 echo -en "${RED}(y/n)${RESET}"
 read option2
