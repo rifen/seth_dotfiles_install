@@ -102,10 +102,10 @@ echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists
-if [ -f ~/.ssh/id_rsa* ]; then
+if [[ -f ~/.ssh/id_rsa* ]]; then
   echo -en "An ssh key is already generated are you sure you want to replace it? (y/n)"
   read -r option1
-elif [ $option1 == "y" ]; then
+elif [[ $option1 == "y" ]]; then
   mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
   mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
   exit 0
@@ -122,11 +122,15 @@ echo -en "${RED}Did you copy and paste into${RESET}${YELLOW}https://github.com/s
 echo -en "${RED}(y/n)${RESET}"
 read -r option2
 
-if [ $option2 == "y" ]; then
+if [[ $option2 == "y" ]]; then
   eval $(ssh-agent -s)
   ssh-add ~/.ssh/id_rsa
   sudo mv -v ~/.bash* ~/*.bak && mv ~/.profile ~/.profile.bak
-  cd ~ && git clone git@github.com:rifen/dotfiles.git && cd dotfiles && stow bash git vim zsh && cd ~
+  cd ~
+  git clone git@github.com:rifen/dotfiles.git
+  cd dotfiles
+  stow bash git vim zsh
+  cd ~
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
 else
   echo -e "${RED}No Github Config - This is a private repo${RESET}"
