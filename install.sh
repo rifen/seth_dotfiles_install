@@ -154,3 +154,5 @@ else
 echo "No Github Config - This is a private repo"
 exit
 fi
+echo "      The END       "
+echo "--------------------"
