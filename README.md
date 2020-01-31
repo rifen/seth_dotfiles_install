@@ -20,4 +20,6 @@
 This is a a repo to configure my workspace and pull from my private (for fun) dotfiles repo.
 
 <h1 align="center">Install</h1>
-`sh -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"`
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"
+```
