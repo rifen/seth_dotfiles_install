@@ -111,9 +111,9 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
     mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
     exit 0
   else
-    exit 1
   fi
 }
+
 ## Generate SSH key for GitHub
 echo -en "Generating SSH key...."
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com" &
