@@ -123,7 +123,7 @@ echo -en "Public Key:"
 echo ""
 cat ~/.ssh/id_rsa.pub
 echo ""
-echo -en "${RED}Did you copy and paste into${RESET}${YELLOW}https://github.com/settings/keys${RESET} ${READ}???${RESET}"
+echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED}???${RESET}"
 read -r -p "${RED}(y/n)${RESET}" response
 response=${response,,} # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]; then
