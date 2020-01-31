@@ -16,8 +16,8 @@
                                               I8, ,8'                      
                                                "Y8P'                        
 ````
-# <center>My Dotfile Install Script</center>
+<h1 align="center">My Dotfile Install Script</h1>
 This is a a repo to configure my workspace and pull from my private (for fun) dotfiles repo.
 
-# <center>Install</center>
+<h1 align="center">Install</h1>
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"`
