@@ -2,7 +2,7 @@
 echo "----------------------------------------"
 echo "          Rifen Zsh Setup                "
 echo "----------------------------------------"
-trap 'do_something' ERR
+set -e
 
 echo ""
 echo "--------------------"
@@ -102,37 +102,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     yum_install
 
   else
-    echo "OS NOT DETECTED, try to flexible mode.."
-    if
-      echo $RELEASE | grep $ARH_RELEASE 2 >/dev/null &
-      1
-    then
-      arh_install
-    elif
-      echo $RELEASE | grep $DEB_RELEASE 2 >/dev/null &
-      1
-    then
-      deb_install
-    elif
-      echo $RELEASE | grep $YUM_RELEASE 2 >/dev/null &
-      1
-    then
-      yum_install
-    fi
+    echo "OS NOT DETECTED, couldn't install packages."
+    exit 1
   fi
-  set_brew
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  set_brew
-  mac_install
-elif [[ "$OSTYPE" == "FreeBSD"* ]]; then
-  bsd_install
-elif uname -a | grep FreeBSD; then
-  bsd_install
-else
-  echo "OS NOT DETECTED, couldn't install packages."
-  exit 1
 fi
-
 echo "--------------------"
 echo "  Apply Settings"
 echo ""
