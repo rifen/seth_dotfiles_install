@@ -25,5 +25,7 @@
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"
 ```
 <h1 align="center">To-do</h1>
-1. Work through complete install process
-2. Option for reinstall
+<ul>
+  <li>1. Work through complete install process</li>
+  <li>2. Option for reinstall</li>
+</ul>
