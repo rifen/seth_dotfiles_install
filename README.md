@@ -1,13 +1,3 @@
-<style>
-
-ul {
-    background-color: #b495c9;
-    color: white;
-   list-style-type: none;
-}
-
-</style>
-
 ```
                            ,ggggggggggg,                                       
                           dP"""88""""""Y8,        ,dPYb,                       
@@ -34,7 +24,7 @@ ul {
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"
 ```
-<h1 align="center" list-stype="none">To-do</h1>
+<h1 align="center", list-stype="none">To-do</h1>
 <ul align="center">
   <li>1. Work through complete install process</li>
   <li>2. Option for reinstall</li>
