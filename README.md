@@ -1,3 +1,13 @@
+<style>
+
+ul {
+    background-color: #b495c9;
+    color: white;
+   list-style-type: none;
+}
+
+</style>
+
 ```
                            ,ggggggggggg,                                       
                           dP"""88""""""Y8,        ,dPYb,                       
