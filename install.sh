@@ -85,6 +85,10 @@ set_brew() {
 install_dotfiles() {
   ## Installs dotfiles
   clear
+  if [[ -f $HOME/dotfiles ]]; then
+    echo -e "Your dotfiles are already installed"
+    exit
+  fi
   eval $(ssh-agent -s)
   ssh-add $HOME/.ssh/id_rsa
   echo -e "Successfully Configured Git..."
