@@ -115,7 +115,7 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}               Downloads               ${RESET}"
+echo -e "${BLUE}             Downloads               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
