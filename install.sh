@@ -8,10 +8,10 @@
 BLACK='\033[0;30m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW="\033[0;33m"
-BLUE="\033[0;34m"
-MAGENTA="\033[0;35m"
-CYAN="\033[0;36m"
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 RESET='\033[0m'
 
@@ -23,7 +23,10 @@ MAC_PACKAGE_NAME="stow zsh git python"
 BSD_PACKAGE_NAME="stow zsh git python"
 BRW_PACKAGE_NAME="stow zsh git python"
 
+#Back folder for old things
 BACKUP_DIR="$HOME/.backup"
+
+#Current Github email account 
 GITHUB_EMAIL="seth.a.gehring@gmail.com"
 
 ################
@@ -82,7 +85,6 @@ install_dotfiles() {
   eval $(ssh-agent -s)
   ssh-add $HOME/.ssh/id_rsa
   echo -e "Successfully Configured Git..."
-  clear
   echo -e "Backing up current bash configuration...to ${BACKUP_DIR}"
   mkdir $BACKUP_DIR
   sudo mv -v $HOME/.bash* $BACKUP_DIR && mv $HOME/.profile $BACKUP_DIR
@@ -112,8 +114,6 @@ gen_key() {
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-set -e
-
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Downloads               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
