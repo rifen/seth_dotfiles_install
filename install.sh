@@ -30,6 +30,8 @@ MAC_PACKAGE_NAME="stow zsh git python"
 BSD_PACKAGE_NAME="stow zsh git python"
 BRW_PACKAGE_NAME="stow zsh git python"
 
+BACKUP_DIR="$HOME/.backup"
+
 arh_install() {
   sudo pacman -Sy
   yes | sudo pacman -S $ARH_PACKAGE_NAME
@@ -93,7 +95,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     exit 1
   fi
 fi
-
+clear
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Updated/Installed Packages               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
@@ -103,6 +105,7 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Generate SSH key for GitHub
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
+echo -e "\n "
 echo -en "Public Key:"
 echo -e "\n "
 cat ~/.ssh/id_rsa.pub
@@ -110,16 +113,24 @@ echo -e "\n "
 echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
 read -r -p " (y/N) " response
 response=${response,,} # tolower
+
+## After Git has successfully been configured
 if [[ "$response" =~ ^(yes|y)$ ]]; then
+  clear
   eval $(ssh-agent -s)
-  ssh-add ~/.ssh/id_rsa
-  sudo mv -v ~/.bash* ~/*.bak && mv ~/.profile ~/.profile.bak
-  cd ~
+  ssh-add $HOME/.ssh/id_rsa
+  echo -e "Successfully Configured Git..."
+  clear
+  echo -e "Backing up current bash configuration...to ${BACKUP_DIR}"
+  mkdir $BACKUP_DIR
+  sudo mv -v $HOME/.bash* $BACKUP_DIR && mv $HOME/.profile $BACKUP_DIR
+  cd $HOME
   git clone git@github.com:rifen/dotfiles.git
-  cd dotfiles
+  cd $HOME/dotfiles
   stow bash git vim zsh
-  cd ~
+  cd $HOME
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
+  exec zsh
 else
   echo -e "${RED}No Github Config - This is a private repo${RESET}"
   exit
