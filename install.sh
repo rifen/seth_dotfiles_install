@@ -1,14 +1,5 @@
 #!/bin/bash -xv
 
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-set -e
-
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Downloads               ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-
 ################
 ## VARIABLES ##
 ################
@@ -106,6 +97,7 @@ install_dotfiles() {
 
 gen_key() {
   ## Generate SSH key for GitHub
+  clear
   ssh-keygen -t rsa -b 4096 -C "${GITHUB_EMAIL}"
   echo -e "\n "
   echo -en "Public Key:"
@@ -117,6 +109,15 @@ gen_key() {
 ###########
 ## LOGIC ##
 ###########
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+set -e
+
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Downloads               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   RELEASE=$(cat /etc/*release | grep ^NAME)
 
@@ -137,41 +138,39 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 fi
 clear
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Updated/Installed Packages               ${RESET}"
+echo -e "${BLUE}     Updated/Installed Packages               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
+
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
-## Look for id_rsa to see if it already exists
+## Look for id_rsa to see if it already exists and run gen_key or dotfiles
 echo -e "Checking for id_rsa...."
-{
-  if [[ -f ~/.ssh/id_rsa ]]; then
-    echo -en "Found an id_rsa (private) key"
-    read -r -p "Are you sure you want to replace it? (y/n) " response
-    response=${response,,} # tolower
-  elif [[ "$response" =~ ^(yes|y)$ ]]; then
-    echo -en "Making a backup of the keys..."
-    cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
-    cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
-    gen_key
-  else
-    gen_key
-    ## Check for Git Configuration
-    echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
-    read -r -p " (y/N) " response
-    response=${response,,} # tolower
-    ## After Git has successfully been configured
-    if [[ "$response" =~ ^(yes|y)$ ]]; then
-      install_dotfiles
-    else
-      echo -e "${RED}No Github Config - This is a private repo${RESET}"
-      exit
-    fi
+if [[ -f $HOME/.ssh/id_rsa ]]; then
+  echo -e "Found an id_rsa (private) key. "
+  read -r -p "Do you want to backup the key? (y/n) " response
+  response=${response,,} # tolower
+elif [[ "$response" =~ ^(yes|y)$ ]]; then
+  echo -en "Making a backup of the keys..."
+  cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
+  cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
+  gen_key
+  install_dotfiles
+else
+  ## Check for Git Configuration
+  echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
+  echo -en "OR is Github already configured for this box?"
+  read -r -p " (y/N) " response
+  response=${response,,} # tolower
+  ## After Git has successfully been configured
+  if [[ "$response" =~ ^(yes|y)$ ]]; then
     install_dotfiles
+  else
+    echo -e "${RED}No Github Config - This is a private repo${RESET}"
   fi
-}
+fi
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${GREEN}          FIN                ${RESET}"
+echo -e "${GREEN}                      FIN                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
