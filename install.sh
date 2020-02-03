@@ -104,9 +104,9 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 ## Generate SSH key for GitHub
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
 echo -en "Public Key:"
-echo -en " "
+echo -e "\n "
 cat ~/.ssh/id_rsa.pub
-echo -en " "
+echo -e "\n "
 echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
 read -r -p " (y/N) " response
 response=${response,,} # tolower
