@@ -103,6 +103,8 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
+
+
 ## Generate SSH key for GitHub
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
 echo -e "\n "
