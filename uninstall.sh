@@ -37,7 +37,7 @@ else
     echo -e "Zinit isn't installed..."
 fi
 
-if [[ -d $HOME/.zshenv ]]; then
+if [[ -f $HOME/.zshenv ]]; then
     rm -rf $HOME/.zshenv
     echo -e "Removed .zshenv directory..."
 else
