@@ -170,7 +170,6 @@ else
     echo -e "${RED}No Github Config - This is a private repo${RESET}"
   fi
 fi
-
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${GREEN}                      FIN                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
