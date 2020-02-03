@@ -85,7 +85,7 @@ set_brew() {
 install_dotfiles() {
   ## Installs dotfiles
   clear
-  if [[ -f $HOME/dotfiles ]]; then
+  if [[ -d $HOME/dotfiles ]]; then
     echo -e "Your dotfiles are already installed"
     exit
   fi
