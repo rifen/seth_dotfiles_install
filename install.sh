@@ -179,19 +179,25 @@ if [[ "$response" =~ ^(yes|y)$ ]]; then
   cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
 fi
 
-read -r - p "Do you want to generate a new key?" response
+read -r -p "Do you want to generate a new key?" response
 
 if [[ "$response" =~ ^(yes|y)$ ]]; then
   gen_key
 fi
 
-read -r - p "Assuming you have Github configured do you want to install the dotfiles? (y/n)" response
+read -r -p "Assuming you have Github configured do you want to install the dotfiles? (y/n)" response
 
 if [[ "$response" =~ ^(yes|y)$ ]]; then
   install_dotfiles
 fi
 
 if [[ "$response" =~ ^(no|n)$ ]]; then
+  read -r -p "Do you want to install the dotfiles still?" response
+fi
+
+if [[ "$response" =~ ^(yes|y)$ ]]; then
+  install_dotfiles
+else
   echo -e "${RED}No Github Config - This is a private repo${RESET} OR you just don't want to install the dotfiles."
 fi
 
