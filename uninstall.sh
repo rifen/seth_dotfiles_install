@@ -22,6 +22,9 @@ echo -e "Removed .fzf"
 rm -rf $HOME/.zinit
 echo -e "Removed .zinit directory..."
 
+rm -rf $HOME/.zshenv
+echo -e "Removed .zshenv directory..."
+
 cd $HOME/dotfiles
 echo -e "Stowing Bash/Git/Vim/Zsh configs..."
 stow -D bash git vim zsh
@@ -36,4 +39,5 @@ fi
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}               Uninstalled               ${RESET}"
+echo -e "${BLUE}  Old dotfiles are in .backup               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
