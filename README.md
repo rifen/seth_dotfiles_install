@@ -24,8 +24,9 @@
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/install.sh)"
 ```
+<h1 align="center">Uninstall</h1>
+
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/uninstall.sh)"
+```
 <h1 align="center">To-do</h1>
-<ul align="center">
-  <li style="list-style:none;">1. Work through complete install process</li>
-  <li style="list-style:none;">2. Option for reinstall</li>
-</ul>
