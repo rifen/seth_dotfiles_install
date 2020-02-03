@@ -26,10 +26,11 @@ cd $HOME/dotfiles
 echo -e "Stowing Bash/Git/Vim/Zsh configs..."
 stow -D bash git vim zsh
 
+cd $HOME
 if [[ -d $HOME/dotfiles ]]; then
     rm -rf $HOME/dotfiles
     echo -e "Removed dotfiles directory..."
-    else
+else
     echo -e "Dotfiles isn't installed..."
 fi
 
