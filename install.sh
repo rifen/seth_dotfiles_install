@@ -1,6 +1,19 @@
 #!/bin/bash -xv
 
-#backslash-escape colors
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+set -e
+
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Downloads               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+
+################
+## VARIABLES ##
+################
+
+# backslash-escape colors
 BLACK='\033[0;30m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -11,18 +24,7 @@ CYAN="\033[0;36m"
 WHITE='\033[0;37m'
 RESET='\033[0m'
 
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-set -e
-
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Downloads               ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-ARH_RELEASE="arch\|Manjaro\|Chakra"
-DEB_RELEASE="[Dd]ebian\|Knoppix"
-YUM_RELEASE="rhel\|CentOS\|RED\|Fedora"
-
+# package installs
 ARH_PACKAGE_NAME="stow zsh git python"
 DEB_PACKAGE_NAME="stow zsh git python"
 YUM_PACKAGE_NAME="stow zsh git python"
@@ -31,7 +33,11 @@ BSD_PACKAGE_NAME="stow zsh git python"
 BRW_PACKAGE_NAME="stow zsh git python"
 
 BACKUP_DIR="$HOME/.backup"
+GITHUB_EMAIL="seth.a.gehring@gmail.com"
 
+################
+## FUNCTIONS ##
+################
 arh_install() {
   sudo pacman -Sy
   yes | sudo pacman -S $ARH_PACKAGE_NAME
@@ -79,45 +85,8 @@ set_brew() {
   $(brew --prefix)/opt/fzf/install
 }
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  RELEASE=$(cat /etc/*release | grep ^NAME)
-
-  if [[ "$RELEASE" == *"CentOS"* ]]; then
-    yum_install
-  elif [[ "$RELEASE" == *"Ubuntu"* ]]; then
-    deb_install
-  else
-    echo -e "----------------------------------------"
-    echo -e "${RED}OS NOT DETECTED${RESET}"
-    echo -e "$RELEASE was detected"
-    echo -e "Exiting...."
-    echo -e "----------------------------------------"
-    exit 1
-  fi
-fi
-clear
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Updated/Installed Packages               ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Applying Settings               ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-
-
-
-## Generate SSH key for GitHub
-ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
-echo -e "\n "
-echo -en "Public Key:"
-echo -e "\n "
-cat ~/.ssh/id_rsa.pub
-echo -e "\n "
-echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
-read -r -p " (y/N) " response
-response=${response,,} # tolower
-
-## After Git has successfully been configured
-if [[ "$response" =~ ^(yes|y)$ ]]; then
+install_dotfiles() {
+  ## Installs dotfiles
   clear
   eval $(ssh-agent -s)
   ssh-add $HOME/.ssh/id_rsa
@@ -133,10 +102,76 @@ if [[ "$response" =~ ^(yes|y)$ ]]; then
   cd $HOME
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
   exec zsh
-else
-  echo -e "${RED}No Github Config - This is a private repo${RESET}"
-  exit
+}
+
+gen_key() {
+  ## Generate SSH key for GitHub
+  ssh-keygen -t rsa -b 4096 -C "${GITHUB_EMAIL}"
+  echo -e "\n "
+  echo -en "Public Key:"
+  echo -e "\n "
+  cat ~/.ssh/id_rsa.pub
+  echo -e "\n "
+}
+
+###########
+## LOGIC ##
+###########
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  RELEASE=$(cat /etc/*release | grep ^NAME)
+
+  if [[ "$RELEASE" == *"CentOS"* ]]; then
+    yum_install
+  elif [[ "$RELEASE" == *"Red Hat"* ]]; then
+    yum_install
+  elif [[ "$RELEASE" == *"Ubuntu"* ]]; then
+    deb_install
+  else
+    echo -e "----------------------------------------"
+    echo -e "${RED}OS NOT DETECTED${RESET}"
+    echo -e "${RELEASE} was detected"
+    echo -e "Exiting...."
+    echo -e "----------------------------------------"
+    exit 1
+  fi
 fi
+clear
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Updated/Installed Packages               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+echo -e "${BLUE}          Applying Settings               ${RESET}"
+echo -e "${MAGENTA}----------------------------------------${RESET}"
+
+## Look for id_rsa to see if it already exists
+echo -e "Checking for id_rsa...."
+{
+  if [[ -f ~/.ssh/id_rsa ]]; then
+    echo -en "Found an id_rsa (private) key"
+    read -r -p "Are you sure you want to replace it? (y/n) " response
+    response=${response,,} # tolower
+  elif [[ "$response" =~ ^(yes|y)$ ]]; then
+    echo -en "Making a backup of the keys..."
+    cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
+    cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
+    gen_key
+  else
+    gen_key
+    ## Check for Git Configuration
+    echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
+    read -r -p " (y/N) " response
+    response=${response,,} # tolower
+    ## After Git has successfully been configured
+    if [[ "$response" =~ ^(yes|y)$ ]]; then
+      install_dotfiles
+    else
+      echo -e "${RED}No Github Config - This is a private repo${RESET}"
+      exit
+    fi
+    install_dotfiles
+  fi
+}
+
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${GREEN}          FIN                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
