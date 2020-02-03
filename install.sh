@@ -87,7 +87,7 @@ install_dotfiles() {
   echo -e "Successfully Configured Git..."
   echo -e "Backing up current bash configuration...to ${BACKUP_DIR}"
   mkdir $BACKUP_DIR
-  sudo mv -v $HOME/.bash* $BACKUP_DIR && mv $HOME/.profile $BACKUP_DIR
+  sudo mv -v $HOME/.bash* $BACKUP_DIR && mv -v $HOME/.profile $BACKUP_DIR
   cd $HOME
   git clone git@github.com:rifen/dotfiles.git
   cd $HOME/dotfiles
@@ -106,6 +106,17 @@ gen_key() {
   echo -e "\n "
   cat ~/.ssh/id_rsa.pub
   echo -e "\n "
+
+  ## Check for Git Configuration
+  echo -e "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
+  echo -e "OR is Github already configured for this box?"
+  read -r -p " (y/n) " response
+  response=${response,,} # tolower
+  if [[ "$response" =~ ^(yes|y)$ ]]; then
+    :
+  else
+    exit 1
+  fi
 }
 
 ###########
@@ -115,7 +126,7 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}             Downloads               ${RESET}"
+echo -e "${BLUE}               Downloads               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -146,7 +157,7 @@ echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists and run gen_key or dotfiles
-echo -e "Checking for id_rsa...."
+echo -en "Checking for id_rsa...."
 if [[ -f $HOME/.ssh/id_rsa ]]; then
   echo -e "Found an id_rsa (private) key. "
   read -r -p "Do you want to backup the key? (y/n) " response
@@ -155,21 +166,22 @@ elif [[ "$response" =~ ^(yes|y)$ ]]; then
   echo -en "Making a backup of the keys..."
   cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
   cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
+  echo -e "Do you want to generate a new key?" response
+elif [[ "$response" =~ ^(yes|y)$ ]]; then
   gen_key
+elif [[ "$response" =~ ^(no|n)$ ]]; then
+  read -r -p "Assuming you have Github configured do you want to install the dotfiles? " response
+elif [[ "$response" =~ ^(yes|y)$ ]]; then
   install_dotfiles
 else
-  ## Check for Git Configuration
-  echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
-  echo -en "OR is Github already configured for this box?"
-  read -r -p " (y/N) " response
-  response=${response,,} # tolower
-  ## After Git has successfully been configured
-  if [[ "$response" =~ ^(yes|y)$ ]]; then
-    install_dotfiles
-  else
-    echo -e "${RED}No Github Config - This is a private repo${RESET}"
-  fi
+  echo -e "${RED}No Github Config - This is a private repo${RESET} OR you just don't want to install the dotfiles."
 fi
+
+if ! [[ -f $HOME/.ssh/id_rsa ]]; then
+  echo -e "Did not find id_rsa (private) key. "
+  gen_key && install_dotfiles
+fi
+
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${GREEN}                      FIN                ${RESET}"
+echo -e "${GREEN}                    FIN                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
