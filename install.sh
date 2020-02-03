@@ -26,7 +26,7 @@ BRW_PACKAGE_NAME="stow zsh git python"
 #Back folder for old things
 BACKUP_DIR="$HOME/.backup"
 
-#Current Github email account 
+#Current Github email account
 GITHUB_EMAIL="seth.a.gehring@gmail.com"
 
 ################
@@ -115,7 +115,7 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Downloads               ${RESET}"
+echo -e "${BLUE}               Downloads               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
