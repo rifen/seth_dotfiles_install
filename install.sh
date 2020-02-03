@@ -85,10 +85,16 @@ set_brew() {
 install_dotfiles() {
   ## Installs dotfiles
   clear
+  ## Check to see if the dotfiles repo is already there.
   if [[ -d $HOME/dotfiles ]]; then
     echo -e "Your dotfiles are already installed"
     exit
   fi
+  ## Create .zshenv and a skip for compinit for Ubuntu
+  if [[ "$RELEASE" == *"Ubuntu"* ]]; then
+    "skip_global_compinit=1" >$HOME/.zshenv
+  fi
+
   eval $(ssh-agent -s)
   ssh-add $HOME/.ssh/id_rsa
   echo -e "Successfully Configured Git..."
