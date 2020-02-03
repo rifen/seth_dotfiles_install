@@ -15,29 +15,47 @@ CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 RESET='\033[0m'
 
-$HOME/.fzf/
-. uninstall
-echo -e "Removed .fzf"
+if [[ -d $HOME/.oh-my-zsh ]]; then
+    uninstall_oh_my_zsh
+    echo -e "Removed oh-my-zsh..."
+else
+    echo -e "Oh-My-Zsh isn't installed..."
+fi
 
-rm -rf $HOME/.zinit
-echo -e "Removed .zinit directory..."
+if [[ -d $HOME/.fzf ]]; then
+    $HOME/.fzf/
+    . uninstall
+    echo -e "Removed .fzf"
+else
+    echo -e "Fzf isn't installed..."
+fi
 
-rm -rf $HOME/.zshenv
-echo -e "Removed .zshenv directory..."
+if [[ -d $HOME/.zinit ]]; then
+    rm -rf $HOME/.zinit
+    echo -e "Removed .zinit directory..."
+else
+    echo -e "Zinit isn't installed..."
+fi
 
-cd $HOME/dotfiles
-echo -e "Stowing Bash/Git/Vim/Zsh configs..."
-stow -D bash git vim zsh
+if [[ -d $HOME/.zshenv ]]; then
+    rm -rf $HOME/.zshenv
+    echo -e "Removed .zshenv directory..."
+else
+    echo -e "Zshenv isn't installed..."
+fi
 
-cd $HOME
 if [[ -d $HOME/dotfiles ]]; then
+    cd $HOME/dotfiles
+    echo -e "Stowing Bash/Git/Vim/Zsh configs..."
+    stow -D bash git vim zsh
+    cd $HOME
     rm -rf $HOME/dotfiles
     echo -e "Removed dotfiles directory..."
 else
-    echo -e "Dotfiles isn't installed..."
+    echo -e "Your dotfiles aren't installed..."
 fi
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}               Uninstalled               ${RESET}"
-echo -e "${BLUE}  Old dotfiles are in .backup               ${RESET}"
+echo -e "${BLUE}    Old dotfiles are in .backup               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
