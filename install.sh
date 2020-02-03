@@ -164,20 +164,19 @@ echo -en "Checking for id_rsa...."
 
 if ! [[ -f $HOME/.ssh/id_rsa ]]; then
   echo -e "Did not find id_rsa (private) key. "
-  gen_key && install_dotfiles
+  gen_key
+  install_dotfiles
 fi
 
 if [[ -f $HOME/.ssh/id_rsa ]]; then
   echo -e "Found an id_rsa (private) key. "
-  read -r -p "Do you want to backup the key? (y/n) " response
+  read -r -p "Do you want to backup the key and create a new key? (y/n) " response
 fi
 
 if [[ "$response" =~ ^(yes|y)$ ]]; then
   echo -e "Making a backup of the keys..."
   cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
   cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
-else
-  :
 fi
 
 read -r - p "Do you want to generate a new key?" response
