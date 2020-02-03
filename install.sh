@@ -170,7 +170,7 @@ fi
 
 if [[ -f $HOME/.ssh/id_rsa ]]; then
   echo -e "Found an id_rsa (private) key. "
-  read -r -p "Do you want to backup the key and create a new key? (y/n) " response
+  read -r -p "Do you want to backup the key? (y/n) " response
 fi
 
 if [[ "$response" =~ ^(yes|y)$ ]]; then
@@ -189,16 +189,8 @@ read -r -p "Assuming you have Github configured do you want to install the dotfi
 
 if [[ "$response" =~ ^(yes|y)$ ]]; then
   install_dotfiles
-fi
-
-if [[ "$response" =~ ^(no|n)$ ]]; then
-  read -r -p "Do you want to install the dotfiles still?" response
-fi
-
-if [[ "$response" =~ ^(yes|y)$ ]]; then
-  install_dotfiles
 else
-  echo -e "${RED}No Github Config - This is a private repo${RESET} OR you just don't want to install the dotfiles."
+  echo -e "${RED}No Github Config - This is a private repo${RESET} \nOR you just don't want to install the dotfiles."
 fi
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
