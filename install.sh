@@ -101,30 +101,14 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${BLUE}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
-## Look for id_rsa to see if it already exists
-echo -e "Checking for id_rsa...."
-{
-  if [[ -f ~/.ssh/id_rsa* ]]; then
-    echo -en "Found an id_rsa key"
-    read -r -p "An ssh key is already generated are you sure you want to replace it? (y/n) " response
-    response=${response,,} # tolower
-  elif [[ "$response" =~ ^(yes|y)$ ]]; then
-    echo -en "Making a backup of the keys..."
-    mv ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.old
-    mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
-  else
-    :
-  fi
-}
-
 ## Generate SSH key for GitHub
 ssh-keygen -t rsa -b 4096 -C "seth.a.gehring@gmail.com"
 echo -en "Public Key:"
-echo ""
+echo "\n"
 cat ~/.ssh/id_rsa.pub
-echo ""
-echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED}???${RESET}"
-read -r -p "${RED}(y/n)${RESET}" response
+echo "\n"
+echo -en "${RED}Did you copy and paste into${RESET}${YELLOW} https://github.com/settings/keys${RESET}${RED} ??? ${RESET}"
+read -r -p " (y/N) " response
 response=${response,,} # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]; then
   eval $(ssh-agent -s)
