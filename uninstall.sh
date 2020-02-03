@@ -15,6 +15,10 @@ CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 RESET='\033[0m'
 
+###########
+## LOGIC ##
+###########
+
 $HOME/.fzf/
 . uninstall
 echo -e "Removed .fzf"
@@ -26,10 +30,6 @@ cd $HOME/dotfiles
 echo -e "Stowing Bash/Git/Vim/Zsh configs..."
 stow -D bash git vim zsh
 
-if [[ -d dotfiles ]]; then
-    rm -rf dotfiles
+if [[ -d $HOME/dotfiles ]]; then
+    rm -rf $HOME/dotfiles
 fi
-
-echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Uninstalled                ${RESET}"
-echo -e "${MAGENTA}----------------------------------------${RESET}"
