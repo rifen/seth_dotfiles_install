@@ -23,6 +23,9 @@ MAC_PACKAGE_NAME="stow zsh git python"
 BSD_PACKAGE_NAME="stow zsh git python"
 BRW_PACKAGE_NAME="stow zsh git python"
 
+#Converts responses to lowercase and stores the variable
+response=${response,,}
+
 #Back folder for old things
 BACKUP_DIR="$HOME/.backup"
 
@@ -158,28 +161,39 @@ echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists and run gen_key or dotfiles
 echo -en "Checking for id_rsa...."
-if [[ -f $HOME/.ssh/id_rsa ]]; then
-  echo -e "Found an id_rsa (private) key. "
-  read -r -p "Do you want to backup the key? (y/n) " response
-  response=${response,,} # tolower
-elif [[ "$response" =~ ^(yes|y)$ ]]; then
-  echo -en "Making a backup of the keys..."
-  cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
-  cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
-  echo -e "Do you want to generate a new key?" response
-elif [[ "$response" =~ ^(yes|y)$ ]]; then
-  gen_key
-elif [[ "$response" =~ ^(no|n)$ ]]; then
-  read -r -p "Assuming you have Github configured do you want to install the dotfiles? " response
-elif [[ "$response" =~ ^(yes|y)$ ]]; then
-  install_dotfiles
-else
-  echo -e "${RED}No Github Config - This is a private repo${RESET} OR you just don't want to install the dotfiles."
-fi
 
 if ! [[ -f $HOME/.ssh/id_rsa ]]; then
   echo -e "Did not find id_rsa (private) key. "
   gen_key && install_dotfiles
+fi
+
+if [[ -f $HOME/.ssh/id_rsa ]]; then
+  echo -e "Found an id_rsa (private) key. "
+  read -r -p "Do you want to backup the key? (y/n) " response
+fi
+
+if [[ "$response" =~ ^(yes|y)$ ]]; then
+  echo -e "Making a backup of the keys..."
+  cp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_rsa.pub.old
+  cp $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.old
+else
+  :
+fi
+
+read -r - p "Do you want to generate a new key?" response
+
+if [[ "$response" =~ ^(yes|y)$ ]]; then
+  gen_key
+fi
+
+read -r - p "Assuming you have Github configured do you want to install the dotfiles? (y/n)" response
+
+if [[ "$response" =~ ^(yes|y)$ ]]; then
+  install_dotfiles
+fi
+
+if [[ "$response" =~ ^(no|n)$ ]]; then
+  echo -e "${RED}No Github Config - This is a private repo${RESET} OR you just don't want to install the dotfiles."
 fi
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
