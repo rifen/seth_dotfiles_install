@@ -1,4 +1,4 @@
-#!/bin/bash -xv
+#!/bin/bash
 
 ################
 ## VARIABLES ##
@@ -101,6 +101,18 @@ install_dotfiles() {
   stow bash git vim zsh
   cd $HOME
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
+  if ! [[ -d $HOME/Downloads ]]; then
+    mkdir $HOME/Downloads
+    echo -e "Added $HOME\Downloads folder... "
+  fi
+  if ! [[ -d $HOME/Proj* ]]; then
+    mkdir $HOME/Projects
+    echo -e "Added $HOME\Projects folder... "
+  fi
+  if ! [[ -d $HOME/Other_Repos ]]; then
+    mkdir $HOME/Other_Repos
+    echo -e "Added $HOME\Projects folder... "
+  fi
   exec zsh
 }
 
