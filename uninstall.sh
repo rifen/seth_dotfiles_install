@@ -17,14 +17,17 @@ RESET='\033[0m'
 
 if [[ -d $HOME/.oh-my-zsh ]]; then
     uninstall_oh_my_zsh
+    rm -rf .oh-my-zsh
     echo -e "Removed oh-my-zsh..."
 else
     echo -e "Oh-My-Zsh isn't installed..."
 fi
 
 if [[ -d $HOME/.fzf ]]; then
-    $HOME/.fzf/
+    cd $HOME/.fzf/
     . uninstall
+    cd $HOME
+    rm -rf .fzf*
     echo -e "Removed .fzf"
 else
     echo -e "Fzf isn't installed..."
