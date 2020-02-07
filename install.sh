@@ -16,12 +16,12 @@ WHITE='\033[0;37m'
 RESET='\033[0m'
 
 # package installs
-ARH_PACKAGE_NAME="stow zsh git python"
-DEB_PACKAGE_NAME="stow zsh git python"
-YUM_PACKAGE_NAME="stow zsh git python"
-MAC_PACKAGE_NAME="stow zsh git python"
-BSD_PACKAGE_NAME="stow zsh git python"
-BRW_PACKAGE_NAME="stow zsh git python"
+ARH_PACKAGE_NAME="stow zsh git python whois"
+DEB_PACKAGE_NAME="stow zsh git python whois"
+YUM_PACKAGE_NAME="stow zsh git python whois"
+MAC_PACKAGE_NAME="stow zsh git python whois"
+BSD_PACKAGE_NAME="stow zsh git python whois"
+BRW_PACKAGE_NAME="stow zsh git python whois"
 
 #Converts responses to lowercase and stores the variable
 response=${response,,}
