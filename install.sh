@@ -109,15 +109,19 @@ install_dotfiles() {
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
   if ! [[ -d $HOME/Downloads ]]; then
     mkdir $HOME/Downloads
-    echo -e "Added $HOME\Downloads folder... "
+    echo -e "Added $HOME/Downloads folder... "
   fi
   if ! [[ -d $HOME/Proj* ]]; then
     mkdir $HOME/Projects
-    echo -e "Added $HOME\Projects folder... "
+    echo -e "Added $HOME/Projects folder... "
   fi
   if ! [[ -d $HOME/Other_Repos ]]; then
     mkdir $HOME/Other_Repos
-    echo -e "Added $HOME\Projects folder... "
+    echo -e "Added $HOME/Other_Repos folder... "
+  fi 
+  if ! [[ -d $HOME/virtualenv ]]; then
+    mkdir $HOME/virtualenvs
+    echo -e "Added $HOME/virtualenv... "
   fi
   exec zsh
 }
