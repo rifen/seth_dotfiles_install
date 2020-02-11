@@ -16,12 +16,12 @@ WHITE='\033[0;37m'
 RESET='\033[0m'
 
 # package installs
-ARH_PACKAGE_NAME="stow zsh git python whoisi python-pip"
-DEB_PACKAGE_NAME="stow zsh git python whoisi python-pip"
-YUM_PACKAGE_NAME="stow zsh git python whoisi python-pip"
-MAC_PACKAGE_NAME="stow zsh git python whoisi python-pip"
-BSD_PACKAGE_NAME="stow zsh git python whoisi python-pip"
-BRW_PACKAGE_NAME="stow zsh git python whoisi python-pip"
+ARH_PACKAGE_NAME="stow zsh git python3 whoisi python-pip"
+DEB_PACKAGE_NAME="stow zsh git python3 whoisi python-pip"
+YUM_PACKAGE_NAME="stow zsh git python3 whoisi python-pip"
+MAC_PACKAGE_NAME="stow zsh git python3 whoisi python-pip"
+BSD_PACKAGE_NAME="stow zsh git python3 whoisi python-pip"
+BRW_PACKAGE_NAME="stow zsh git python3 whoisi python-pip"
 
 #Converts responses to lowercase and stores the variable
 response=${response,,}
