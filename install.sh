@@ -155,6 +155,20 @@ gen_key() {
   fi
 }
 
+tf() {
+    if ! [ -x "$(command -v terraform)" &> /dev/null ]; then
+        read -r -p "Do you want to install Terraform? (y/n) " response
+        response=${response,,}
+        if [[ "$response" =~ ^(yes|y)$ ]]; then
+            read -r -p "Enter the version of Terraform(eg. 0.12.28): " version
+            cd Downloads
+            echo "Installing terraform ${version} ..."
+            curl -o terraform_${version}_linux_amd64.zip https://releases.hashicorp.com/terraform/${version}/terraform_${version}_linux_amd64.zip
+            sudo unzip terraform_${version}_linux_amd64.zip -d /usr/bin
+        fi
+    fi
+}
+
 ###########
 ## LOGIC ##
 ###########
@@ -201,6 +215,7 @@ if ! [[ -f $HOME/.ssh/id_rsa ]]; then
   echo -e "Did not find id_rsa (private) key. "
   gen_key
   install_dotfiles
+  tf
 fi
 
 if [[ -f $HOME/.ssh/id_rsa ]]; then
@@ -224,6 +239,7 @@ read -r -p "Assuming you have Github configured do you want to install the dotfi
 
 if [[ "$response" =~ ^(yes|y)$ ]]; then
   install_dotfiles
+  tf
 else
   echo -e "${RED}No Github Config - This is a private repo${RESET} \nOR you just don't want to install the dotfiles."
 fi
