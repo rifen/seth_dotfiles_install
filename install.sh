@@ -160,6 +160,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     yum_install
   elif [[ "$RELEASE" == *"Red Hat"* ]]; then
     yum_install
+  elif [[ "$RELEASE" == *"Amazon Linux"* ]]; then
+    yum_install
   elif [[ "$RELEASE" == *"Ubuntu"* ]]; then
     deb_install
   else
