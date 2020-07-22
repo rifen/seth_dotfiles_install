@@ -147,10 +147,10 @@ gen_key() {
 ## LOGIC ##
 ###########
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Rifen Zsh Setup                ${RESET}"
+echo -e "${YELLOW}          Rifen Zsh Setup                ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}               Downloads               ${RESET}"
+echo -e "${YELLOW}               Downloads               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -175,11 +175,11 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 fi
 clear
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}     Updated/Installed Packages               ${RESET}"
+echo -e "${YELLOW}     Updated/Installed Packages               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 echo -e "${MAGENTA}----------------------------------------${RESET}"
-echo -e "${BLUE}          Applying Settings               ${RESET}"
+echo -e "${YELLOW}          Applying Settings               ${RESET}"
 echo -e "${MAGENTA}----------------------------------------${RESET}"
 
 ## Look for id_rsa to see if it already exists and run gen_key or dotfiles
