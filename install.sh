@@ -110,6 +110,7 @@ install_dotfiles() {
     ./configure
     make
     sudo make install
+    cd $HOME/dotfiles
   fi
   stow bash git vim zsh
   cd $HOME
