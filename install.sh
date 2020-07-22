@@ -99,21 +99,6 @@ install_dotfiles() {
   sudo mv -v $HOME/.bash* $BACKUP_DIR && mv -v $HOME/.profile $BACKUP_DIR
   cd $HOME
   git clone git@github.com:rifen/dotfiles.git
-  cd $HOME/dotfiles
-  # For Amazon Linux or a Linux that doesn't have stow in their distribution repository.
-  if ! [ -x "$(command -v stow)" &> /dev/null ]; then
-    echo "Stow isn't installed. Going to compile from source."
-    cd && cd Downloads
-    curl -o stow-latest.tar.gz https://ftp.gnu.org/gnu/stow/stow-latest.tar.gz
-    tar -xvpzf stow-latest.tar.gz
-    cd stow-2*
-    ./configure
-    make
-    sudo make install
-    cd $HOME/dotfiles
-  fi
-  stow bash git vim zsh
-  cd $HOME
   if ! [[ -d $HOME/Downloads ]]; then
     mkdir $HOME/Downloads
     echo -e "Added $HOME/Downloads folder... "
@@ -130,6 +115,20 @@ install_dotfiles() {
     mkdir $HOME/virtualenvs
     echo -e "Added $HOME/virtualenv... "
   fi
+  cd $HOME/dotfiles
+  # For Amazon Linux or a Linux that doesn't have stow in their distribution repository.
+  if ! [ -x "$(command -v stow)" &> /dev/null ]; then
+    echo "Stow isn't installed. Going to compile from source."
+    cd $HOME/Downloads
+    curl -o stow-latest.tar.gz https://ftp.gnu.org/gnu/stow/stow-latest.tar.gz
+    tar -xvpzf stow-latest.tar.gz
+    cd stow-2*
+    ./configure
+    make
+    sudo make install
+    cd $HOME/dotfiles
+  fi
+  stow bash git vim zsh
   tfinstall
   exec zsh
 }
