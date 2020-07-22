@@ -100,6 +100,17 @@ install_dotfiles() {
   cd $HOME
   git clone git@github.com:rifen/dotfiles.git
   cd $HOME/dotfiles
+  # For Amazon Linux or a Linux that doesn't have stow in their distribution repository.
+  if ! command -v stow &> /dev/null then
+    echo "Stow isn't installed. Going to compile from source."
+    cd && cd Downloads
+    curl -o stow-latest.tar.gz https://ftp.gnu.org/gnu/stow/stow-latest.tar.gz
+    tar -xvpzf stow-latest.tar.gz
+    cd stow-2*
+    ./configure
+    make
+    sudo make install
+  fi
   stow bash git vim zsh
   cd $HOME
   if ! [[ -d $HOME/Downloads ]]; then
