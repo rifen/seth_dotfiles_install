@@ -30,6 +30,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_inst
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/uninstall.sh)"
 ```
 <h1 align="center">To-do</h1>
+
 1. Add gh https://cli.github.com/ install and configuration
 
 ```bash
