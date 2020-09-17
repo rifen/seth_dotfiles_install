@@ -30,3 +30,12 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_inst
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/uninstall.sh)"
 ```
 <h1 align="center">To-do</h1>
+1. Add gh https://cli.github.com/ install and configuration
+```
+RedHat:
+cd /etc/yum.repos.d
+sudo wget https://cli.github.com/packages/rpm/gh-cli.repo
+sudo yum-config-manager --enable gh-cli.repo
+sudo yum install gh -y
+gh auth login
+```
