@@ -40,3 +40,4 @@ sudo yum-config-manager --enable gh-cli.repo
 sudo yum install gh -y
 gh auth login
 ```
+2.  Add github action testing instead of me manually running the script on multiple machines :)
