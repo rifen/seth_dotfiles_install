@@ -190,6 +190,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     yum_install
   elif [[ "$RELEASE" == *"Ubuntu"* ]]; then
     deb_install
+  elif [[ "$RELEASE" == *"Debian GNU/Linux"* ]]; then
+    deb_install
   else
     echo -e "----------------------------------------"
     echo -e "${RED}OS NOT DETECTED${RESET}"
