@@ -88,6 +88,7 @@ install_dotfiles() {
   ## Check to see if the dotfiles repo is already there.
   if [[ -d $HOME/dotfiles ]]; then
     echo -e "Your dotfiles are already installed"
+    program_installs
     exit
   fi
 
@@ -129,8 +130,7 @@ install_dotfiles() {
     cd $HOME/dotfiles
   fi
   stow bash git vim zsh
-  tfinstall
-  bwinstall
+  program_installs
   exec zsh
 }
 
@@ -154,6 +154,11 @@ gen_key() {
   else
     exit 1
   fi
+}
+
+program_installs() {
+  tfinstall
+  bwinstall
 }
 
 tfinstall() {
