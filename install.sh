@@ -185,6 +185,7 @@ bwinstall() {
             echo "Installing bitwarden ${version} ..."
             curl -O -L "https://github.com/bitwarden/cli/releases/download/v${version}/bw-linux-${version}.zip"
             sudo unzip bw-linux-${version}.zip -d /usr/bin
+            bash chmod +x /usr/bin/bw
         fi
     fi
 }
