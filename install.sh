@@ -130,6 +130,7 @@ install_dotfiles() {
   fi
   stow bash git vim zsh
   tfinstall
+  bwinstall
   exec zsh
 }
 
@@ -165,6 +166,20 @@ tfinstall() {
             echo "Installing terraform ${version} ..."
             curl -o terraform_${version}_linux_amd64.zip https://releases.hashicorp.com/terraform/${version}/terraform_${version}_linux_amd64.zip
             sudo unzip terraform_${version}_linux_amd64.zip -d /usr/bin
+        fi
+    fi
+}
+
+bwinstall() {
+    if ! [ -x "$(command -v bw)" &> /dev/null ]; then
+        read -r -p "Do you want to install BitWarden? (y/n) " response
+        response=${response,,}
+        if [[ "$response" =~ ^(yes|y)$ ]]; then
+            read -r -p "Enter the version of Bitwarden https://github.com/bitwarden/cli/releases (eg. 1.17.1): " version
+            cd Downloads
+            echo "Installing bitwarden ${version} ..."
+            curl -o bw-linux-${version}.zip "https://github.com/bitwarden/cli/releases/download/v1.17.1/bw-linux-1.17.1.zip"
+            sudo unzip bw-linux-${version}.zip -d /usr/bin
         fi
     fi
 }
