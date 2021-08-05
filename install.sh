@@ -183,7 +183,7 @@ bwinstall() {
             read -r -p "Enter the version of Bitwarden https://github.com/bitwarden/cli/releases (eg. 1.17.1): " version
             cd Downloads
             echo "Installing bitwarden ${version} ..."
-            curl -o bw-linux-${version}.zip "https://github.com/bitwarden/cli/releases/download/v1.17.1/bw-linux-1.17.1.zip"
+            curl -O "https://github.com/bitwarden/cli/releases/download/v1.17.1/bw-linux-${version}.zip"
             sudo unzip bw-linux-${version}.zip -d /usr/bin
         fi
     fi
