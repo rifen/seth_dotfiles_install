@@ -16,12 +16,12 @@ WHITE='\033[0;37m'
 RESET='\033[0m'
 
 # package installs
-ARH_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli"
-DEB_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli"
-YUM_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli"
-MAC_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli"
-BSD_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli"
-BRW_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli"
+ARH_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli xclip sshpass"
+DEB_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli xclip sshpass"
+YUM_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli xclip sshpass"
+MAC_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli xclip sshpass"
+BSD_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli xclip sshpass"
+BRW_PACKAGE_NAME="stow zsh git python3 whois unzip gcc make awless awscli xclip sshpass"
 
 #Converts responses to lowercase and stores the variable
 response=${response,,}
