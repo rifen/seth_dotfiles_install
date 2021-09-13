@@ -30,15 +30,6 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_inst
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/uninstall.sh)"
 ```
 <h1 align="center">To-do</h1>
-
-1. Add gh https://cli.github.com/ install and configuration
-
-```bash
-RedHat
-cd /etc/yum.repos.d
-sudo wget https://cli.github.com/packages/rpm/gh-cli.repo
-sudo yum-config-manager --enable gh-cli.repo
-sudo yum install gh -y
-gh auth login
-```
-2.  Add github action testing instead of me manually running the script on multiple machines :)
+1. Add dropbox install/sync + symlink of .ssh/config and .ssh/configs
+2. Add github action testing instead of me manually running the script on multiple machines :)
+  
