@@ -30,6 +30,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_inst
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/rifen/seth_dotfiles_install/master/uninstall.sh)"
 ```
 <h1 align="center">To-do</h1>
-1. Add dropbox install/sync + symlink of .ssh/config and .ssh/configs
-2. Add github action testing instead of me manually running the script on multiple machines :)
+
+1.  Add dropbox install/sync + symlink of .ssh/config and .ssh/configs
+2.  Add github action testing instead of me manually running the script on multiple machines :)
   
